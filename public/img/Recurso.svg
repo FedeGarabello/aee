@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 412 915">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-dasharray: 0 0 24 24;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-6, .cls-7, .cls-8 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-1, .cls-3 {
+        stroke: #fbbf0d;
+        stroke-width: 4px;
+      }
+
+      .cls-2, .cls-4 {
+        stroke: #fbbf14;
+        stroke-width: 5px;
+      }
+
+      .cls-9 {
+        fill: #ebba49;
+      }
+
+      .cls-10 {
+        clip-path: url(#clippath);
+      }
+
+      .cls-4 {
+        stroke-linecap: square;
+      }
+
+      .cls-6, .cls-7, .cls-8 {
+        stroke: #dc584e;
+        stroke-width: 3px;
+      }
+
+      .cls-11 {
+        fill: #dc584e;
+      }
+
+      .cls-7 {
+        stroke-dasharray: 0 7;
+      }
+
+      .cls-12 {
+        fill: #64884f;
+      }
+
+      .cls-8 {
+        stroke-dasharray: 0 0 6.94 6.94;
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-5" width="412" height="915"/>
+    </clipPath>
+  </defs>
+  <g id="Eventos">
+    <g class="cls-10">
+      <g id="background">
+        <g id="Circulos">
+          <circle class="cls-8" cx="289.5" cy="4.5" r="126"/>
+          <circle class="cls-12" cx="350" cy="49" r="126"/>
+          <circle class="cls-9" cx="385.5" cy="159.5" r="53.5"/>
+        </g>
+        <g id="Elementos_Fondo" data-name="Elementos Fondo">
+          <g>
+            <line class="cls-1" x1="422.21" y1="283.58" x2="358.15" y2="337.92"/>
+            <polyline class="cls-3" points="349 345.68 337.56 355.39 347.26 366.82"/>
+            <line class="cls-1" x1="362.79" y1="385.13" x2="417.13" y2="449.18"/>
+          </g>
+          <g>
+            <path class="cls-7" d="M-50.06,506.56c26.96,27.52,71.12,27.98,98.64,1.02,27.52-26.96,27.98-71.12,1.02-98.64"/>
+            <path class="cls-6" d="M49.6,408.94c-26.96-27.52-71.12-27.98-98.64-1.02-27.52,26.96-27.98,71.12-1.02,98.64"/>
+          </g>
+          <g>
+            <line class="cls-4" x1="316.3" y1="793.07" x2="371.55" y2="964.6"/>
+            <line class="cls-4" x1="316.3" y1="793.07" x2="462.46" y2="746"/>
+            <path class="cls-2" d="M338.16,860.94c4.08-1.09,29.13-8.26,42.65-34.15,13.81-26.45,4.73-51.69,3.27-55.54"/>
+          </g>
+          <path class="cls-11" d="M-110.3,952.39l3.85,1.32,44.29-128.98,92.22,31.91L-14.54,985.54l3.62,1.25,44.6-128.9,92.38,31.96-44.59,128.89,3.84,1.33,66.66-192.68h.01s1.32-3.84,1.32-3.84l-196.22-67.37h0s0,0,0,0l-1.33,3.84h.01s-20.52,59.76-20.52,59.76l-.15-.05-1.25,3.62,.16,.06-44.29,128.99Zm69.89-191.03l188.37,65.17-20.84,60.25,.19-.54-188.22-65.12,20.52-59.75Z"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
