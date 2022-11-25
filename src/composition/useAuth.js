@@ -9,15 +9,16 @@ export default function useAuth() {
         photoURL: null,
     });
 
-    let unsubscribe;
+    let unsuscribe;
     onMounted(() => {
-        unsubscribe = subscribeToAuthChanges(newUserData => {
+        unsuscribe = subscribeToAuthChanges(newUserData => {
             user.value = newUserData
         });
     });
 
     onUnmounted(() => {
-        unsubscribe();
+        if(typeof unsuscribe !== "function") return
+        unsuscribe();
     });
 
     return {

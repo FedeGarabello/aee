@@ -36,7 +36,7 @@ function useLogin() {
         status.value.type = "success";
         status.value.text = "¡Bienvenido!";
         loading.value = false;
-        router.push("/inicio");
+        router.push("/");
       })
       .catch((err) => {
         status.value = {
@@ -82,7 +82,7 @@ function userRegisterForm() {
         loading.value = false;
         status.value.type = "success";
         status.value.text = "¡Usuario creado con éxito!";
-        router.push("/inicio");
+        router.push("/");
       })
       .catch((err) => {
         loading.value = false;
