@@ -12,7 +12,11 @@ export default function usePlayers() {
     let unsuscribe;
     onMounted(() => {
         unsuscribe = suscribeToPlayersEventChanges(idE, newEventData => {
-            jugadores.value = newEventData;
+            if(newEventData.length > 0) {
+                jugadores.value = newEventData;
+            } else {
+                jugadores.value = [];
+            }
         });
     });
 

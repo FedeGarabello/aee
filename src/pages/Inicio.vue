@@ -14,7 +14,7 @@ const { eventos } = useMyEvents();
         </div>
       </div>
       <div class="row mx-2">
-        <div class="col-12 cardAEE" v-for="evento in eventos" :key="evento.id">
+        <div class="col-12 col-md-6 cardAEE" v-for="evento in eventos" :key="evento.id">
           <!-- TODO: Pasar a componente -->
           <router-link class="link-light" :to="`/evento/${evento.id}`">
             <p>{{ evento.title }}</p>

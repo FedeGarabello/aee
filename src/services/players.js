@@ -18,20 +18,20 @@ const db = getFirestore();
 export function suscribeToPlayersEventChanges(idE, callback) {
     const queryRef = query(
         collection(db, 'events', idE, 'players'),
-        orderBy('joined_at', 'asc'),
+        where("go", "==", true),
     );
 
     return onSnapshot(queryRef, snapshot => {
         const data = snapshot.docs.map(item => {
             return {
-                apellido: item.data().apellido,
-                displayName: item.data().displayName,
-                email: item.data().email,
-                go: item.data().go,
                 id: item.data().id,
-                joined_at: item.data().joined_at,
                 nombre: item.data().nombre,
+                apellido: item.data().apellido,
+                email: item.data().email,
+                displayName: item.data().displayName,
                 photoURL: item.data().photoURL,
+                go: item.data().go,
+                joined_at: item.data().joined_at,
             }
         });
         callback(data);
@@ -39,12 +39,57 @@ export function suscribeToPlayersEventChanges(idE, callback) {
 }
 
 
-export function participation(idE, idP, go) {
-    return updateDoc(doc(db, 'events', idE, 'players', idP), {
-        go: go,
-    }).then(() => {
-        return { success: go };
-    }).catch((error) => {
-        return { error: error };
+export async function participation(idE, idP, state) {
+    await updateDoc(doc(db, 'events', idE, 'players', idP), {
+        go: state,
+    })
+    .then(() => {
+        updateDoc(doc(db, 'users', idP, 'events', idE), {
+            go: state,
+        })
+        .then(() => {
+            return {
+                status: true,
+                message: 'Participación actualizada',
+            }
+        })
+    })
+    .catch((error) => {
+        return {
+            status: false,
+            message: error,
+        }
+    })
+}
+
+
+export function myParticipationFn(idE, idP, callback) {
+    return onSnapshot(doc(db, "events", idE, "players", idP ), (doc) => {
+        console.log("Current data: ", doc.data());
     });
 }
+
+
+    
+    // return getDoc(doc(db, 'events', idE, 'players', idP))
+    // .then((doc) => {
+    //     if (doc.exists()) {
+    //         return {
+    //             status: true,
+    //             message: 'Participación obtenida',
+    //             go: doc.data().go,
+    //         }
+    //     } else {
+    //         return {
+    //             status: false,
+    //             message: 'No existe participación',
+    //         }
+    //     }
+    // })
+    // .catch((error) => {
+    //     return {
+    //         status: false,
+    //         message: error,
+    //     }
+    // })
+    // }

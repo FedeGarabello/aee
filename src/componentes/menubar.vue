@@ -46,7 +46,6 @@ function useNewEvent() {
     description: "",
     date: "",
     location: "",
-    // image: "",
     state: 1,
   });
   function limpiarCampos(){
