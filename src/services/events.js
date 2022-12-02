@@ -12,14 +12,18 @@ import {
     setDoc,
     getDoc,
     getDocs,
+    Timestamp,
+    updateDoc,
 } from "firebase/firestore";
-import { dateToString } from "../helpers/date";
 
 const db = getFirestore();
 
 function getCollectionReference(){
     return collection(db, "events");
 }
+
+
+
 /**
  * Crea un evento nuevo y agrega el usuario que lo creó a una 
  * subcollection que se llama players
@@ -48,13 +52,16 @@ export function newEvent(profile, {title, cantPlayers, description, date, locati
                 ...profile,
                 joined_at: serverTimestamp(),
                 go: true,
+                updated_at: serverTimestamp(),
+                admin: true,
             })
             return setDoc(doc(collection(db, "users"), profile.id, "events", docRef.id), {
-
                 idE: docRef.id,
                 joined_at: serverTimestamp(),
                 go: true,
                 ...data,
+                updated_at: serverTimestamp(),
+                admin: true,
             })
         })
 }
@@ -72,7 +79,8 @@ export function newEvent(profile, {title, cantPlayers, description, date, locati
  */
 export async function getEvents(idU, callback) {
     const queryRef = query(
-        collection(db, "users", idU, "events")
+        collection(db, "users", idU, "events"),
+        orderBy("date", "asc")
     );
     return onSnapshot(queryRef, (querySnapshot) => {
         const data = [];
@@ -86,6 +94,10 @@ export async function getEvents(idU, callback) {
         callback(data);
     });
 }
+
+
+
+
 
 export async function suscribeToEventChanges(idE, callback) {
     const docRef = doc(db, "events", idE);
@@ -103,4 +115,18 @@ export async function suscribeToEventChanges(idE, callback) {
         }
         callback(data);
     });
+}
+
+
+
+export function editEvent(user, id, data) {
+    return updateDoc(doc(db, "events", id), data)
+    .then(() => {
+        return getDocs(collection(db, "events", id, "players"))
+        .then((querySnapshot) => {
+            querySnapshot.forEach((d) => {
+                updateDoc(doc(collection(db, "users"), d.id, "events", id), data)
+            });
+        })
+    })
 }

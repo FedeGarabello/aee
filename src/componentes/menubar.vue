@@ -54,7 +54,7 @@ function useNewEvent() {
         type: "",
         message: "",
       };
-    }, 4000);
+    }, 2000);
   }
   function handlNewEvent() {
     loader.value = true;
@@ -122,11 +122,11 @@ function useNewEvent() {
     </div>
   </div>
   
-  <footer class="d-flex flex-row justify-content-around">
+  <footer class="d-flex flex-row justify-content-around bottomMenuBar">
     <router-link class="btn btn-dark my-3" to="/">
-      <i class="bi bi-list-ul"></i>
+      <i class="bi bi-calendar3"></i>
     </router-link>
-    <button class="btn btn-dark my-3"><i class="bi bi-search"></i></button>
+    <router-link to="/buscar-evento" class="btn btn-dark my-3"><i class="bi bi-globe-americas"></i></router-link>
     <button
       class="btn btn-aeeok my-3"
       data-bs-toggle="modal"

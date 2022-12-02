@@ -1,5 +1,5 @@
 <script setup>
-import Loader from "./Loader/Loader.vue";
+import Loader from "./Loader.vue";
 
 defineProps({
   loading: {

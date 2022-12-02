@@ -25,6 +25,7 @@
     "webpack-dev-server": "^4.11.0"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.15.1",
     "bootstrap": "^5.2.1",
     "firebase": "^9.9.4",
     "vue": "^3.2.39",

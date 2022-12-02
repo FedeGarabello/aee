@@ -12,40 +12,43 @@ import {
     onSnapshot,
     orderBy,
     limit,
+    serverTimestamp,
+    Timestamp,
 } from "firebase/firestore";
 const db = getFirestore();
 
 export function suscribeToPlayersEventChanges(idE, callback) {
     const queryRef = query(
         collection(db, 'events', idE, 'players'),
-        where("go", "==", true),
+        orderBy("updated_at", "asc")
     );
 
-    return onSnapshot(queryRef, snapshot => {
-        const data = snapshot.docs.map(item => {
-            return {
-                id: item.data().id,
-                nombre: item.data().nombre,
-                apellido: item.data().apellido,
-                email: item.data().email,
-                displayName: item.data().displayName,
-                photoURL: item.data().photoURL,
-                go: item.data().go,
-                joined_at: item.data().joined_at,
-            }
+    return onSnapshot(queryRef, (querySnapshot) => {
+        const docs = [];
+        querySnapshot.forEach((doc) => {
+            docs.push({ 
+                ...doc.data(),
+                id: doc.id 
+            });
         });
-        callback(data);
+        callback(docs);
     });
 }
+
+
+
+
 
 
 export async function participation(idE, idP, state) {
     await updateDoc(doc(db, 'events', idE, 'players', idP), {
         go: state,
+        updated_at: serverTimestamp()
     })
     .then(() => {
         updateDoc(doc(db, 'users', idP, 'events', idE), {
             go: state,
+            updated_at:  serverTimestamp()
         })
         .then(() => {
             return {
@@ -65,31 +68,41 @@ export async function participation(idE, idP, state) {
 
 export function myParticipationFn(idE, idP, callback) {
     return onSnapshot(doc(db, "events", idE, "players", idP ), (doc) => {
-        console.log("Current data: ", doc.data());
     });
 }
 
 
-    
-    // return getDoc(doc(db, 'events', idE, 'players', idP))
-    // .then((doc) => {
-    //     if (doc.exists()) {
-    //         return {
-    //             status: true,
-    //             message: 'Participación obtenida',
-    //             go: doc.data().go,
-    //         }
-    //     } else {
-    //         return {
-    //             status: false,
-    //             message: 'No existe participación',
-    //         }
-    //     }
-    // })
-    // .catch((error) => {
-    //     return {
-    //         status: false,
-    //         message: error,
-    //     }
-    // })
-    // }
+
+
+export function addPlayer(evento, player) {
+    setDoc(doc(db, 'events', evento.id, 'players', player.id), {
+        ...player,
+        joined_at: serverTimestamp(),
+        go: false,
+        updated_at: serverTimestamp(),
+        admin:false,
+    })
+    .then(() => {
+        setDoc(doc(db, 'users', player.id, 'events', evento.id), {
+            idE: evento.id,
+            ...evento,
+            date: evento.date.toISOString(),
+            joined_at: serverTimestamp(),
+            go: false,
+            updated_at: serverTimestamp(),
+            admin:false,
+        })
+        .then(() => {
+            return {
+                status: true,
+                message: 'Participación actualizada',
+            }
+        })
+    })
+    .catch((error) => {
+        return {
+            status: false,
+            message: error,
+        }
+    })
+}

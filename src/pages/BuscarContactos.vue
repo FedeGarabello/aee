@@ -2,8 +2,11 @@
 import { ref } from "vue";
 import CarResultado from "../componentes/carResultado.vue";
 import { getUsersXEmail, getUsersXNombre, getUsersXApellido } from "../services/contacts.js";
-// import useAuth from "../composition/useAuth";
-// const { user } = useAuth();
+import useAuth from "../composition/useAuth";
+import useContacts from "../composition/useContacts";
+
+const { contactos } = useContacts();
+const { user } = useAuth();
 
 const {
     resultados,
@@ -17,7 +20,6 @@ const {
 
 
 function useBuscarContacos() {
-
     const email = ref("");
     const nombre = ref("");
     const apellido = ref("");
@@ -27,7 +29,6 @@ function useBuscarContacos() {
         if(email.value != "") {
             getUsersXEmail(email)
             .then((data) => {
-                console.log('%cContactos.vue line:37 data', 'color: #007acc;', data);
                 resultados.value = data;
             })
         }
@@ -37,7 +38,6 @@ function useBuscarContacos() {
         if(nombre.value != "") {
             getUsersXNombre(nombre)
             .then((data) => {
-                console.log('%cContactos.vue line:37 data', 'color: #007acc;', data);
                 resultados.value = data;
             })
         }
@@ -47,7 +47,6 @@ function useBuscarContacos() {
         if(apellido.value != "") {
             getUsersXApellido(apellido)
             .then((data) => {
-                console.log('%cContactos.vue line:37 data', 'color: #007acc;', data);
                 resultados.value = data;
             })
         }
@@ -67,7 +66,7 @@ function useBuscarContacos() {
 </script>
 <template>
     <div class="container">
-        <h2>Buscar contactos</h2>
+        <h2 class="text-center">Buscar contactos</h2>
         <div class="hstack gap-3 mb-2">
             <input
                 class="form-control me-auto"
@@ -102,7 +101,7 @@ function useBuscarContacos() {
         <div class="container mt-4">
             <div class="row">
                 <div class="col-12 col-sm-6 mx-auto" v-for="resultado in resultados" >
-                    <CarResultado :resultado="resultado" />
+                    <CarResultado :contacto="resultado" />
                 </div>
             </div>
         </div>

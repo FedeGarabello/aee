@@ -9,7 +9,7 @@ export default {
 
 <style>
 .lds-dual-ring {
-  display: inline-block;
+  /* display: inline-block; */
   width: 80px;
   height: 80px;
 }

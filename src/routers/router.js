@@ -1,12 +1,14 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import { subscribeToAuthChanges } from "../services/auth.js";
-import { isUserInEvent } from "../services/events.js";
 
 import Login from "../pages/Login.vue";
 import Inicio from "../pages/Inicio.vue";
 import Evento from "../pages/Evento.vue";
 import Contactos from "../pages/Contactos.vue";
 import BuscarContactos from "../pages/BuscarContactos.vue";
+import BuscarEvento from "../pages/BuscarEvento.vue";
+import Chat from "../pages/Chat.vue";
+import Perfil from "../pages/Perfil.vue";
 
 const routes = [
   {
@@ -29,6 +31,13 @@ const routes = [
     },
   },
   {
+    path: "/evento/:idEvento/chat",
+    component: Chat,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/contactos",
     component: Contactos,
     meta: {
@@ -38,6 +47,20 @@ const routes = [
   {
     path: "/buscar-contactos",
     component: BuscarContactos,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/buscar-evento",
+    component: BuscarEvento,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/perfil",
+    component: Perfil,
     meta: {
       requiresAuth: true,
     },

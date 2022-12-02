@@ -16,18 +16,11 @@ export default function useMyParticipation() {
             
             if(newEventData.length > 0) {
                 myParticipation.value = newEventData;
-                console.log('%cuseMyParticipation.js line:19 myParticipation.value', 'color: #007acc;', myParticipation.value);
             } else {
                 myParticipation.value = {};
             }
         });
-        // unsubscribe = myParticipationFn(idE, user.value.id)
     })
-        // .then((data) => {
-        //     myParticipation.value = data;
-        // })
-        // console.log('%cuseMyParticipationjs line:14 myParticipation.value', 'color: #007acc;', myParticipation.value);
-    // });
 
     onUnmounted(() => {
         if(typeof unsubscribe === 'function') {

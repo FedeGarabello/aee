@@ -1,8 +1,10 @@
 <script setup>
-import { dateToString } from "../helpers/date.js";
-import useMyEvents from "../composition/useMyEvents";
 
-const { eventos } = useMyEvents();
+import LoadingContext from "../componentes/LoadingContext.vue";
+import useMyEvents from "../composition/useMyEvents";
+import CardEvento from "../componentes/cardEvento.vue";
+
+const { eventos, loading } = useMyEvents();
 </script>
 
 <template>
@@ -13,21 +15,16 @@ const { eventos } = useMyEvents();
           <h2 class="text-center">Eventos</h2>
         </div>
       </div>
-      <div class="row mx-2">
-        <div class="col-12 col-md-6 cardAEE" v-for="evento in eventos" :key="evento.id">
-          <!-- TODO: Pasar a componente -->
-          <router-link class="link-light" :to="`/evento/${evento.id}`">
-            <p>{{ evento.title }}</p>
-            <p>{{ dateToString(evento.date) }}</p>
-            <p>
-              Cantidad de participantes necesarios: {{ evento.cantPlayers }}
-            </p>
-            <p>Cancha: {{ evento.location }}</p>
-            <p v-if="evento.state == 1">Se juega</p>
-            <p v-else-if="evento.state == 0">Se canceló</p>
-          </router-link>
+      <LoadingContext :loading="loading">
+        <div class="row mb-5">
+            <div class="col-12 col-sm-6" v-if="eventos.length > 0"  v-for="evento in eventos" :key="evento.id">
+              <CardEvento :evento="evento" :key="evento.id"></CardEvento>
+            </div>
+            <div v-else>
+              <h3 class="text-center mt-4 p-3 shadow">No hay eventos</h3>
+            </div>
         </div>
-      </div>
+      </LoadingContext>
     </div>
   </section>
 </template>
